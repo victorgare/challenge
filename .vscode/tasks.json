@@ -3,10 +3,24 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "dev",
-      "problemMatcher": [],
-      "label": "npm: dev",
-      "detail": "npm run dev"
+      "script": "debug",
+      "problemMatcher": ["$tsc"],
+      "label": "npm: debug",
+      "detail": "npm run debug"
+    },
+    {
+      "label": "Terminate All Tasks",
+      "command": "echo ${input:terminate}",
+      "type": "shell",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "terminateAll"
     }
   ]
 }

@@ -9,7 +9,8 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "debug"],
       "preLaunchTask": "npm: dev",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
+      "restart": false
     }
   ],
   "compounds": []
