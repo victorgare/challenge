@@ -23,8 +23,6 @@ export default class RecipesController extends BaseController {
   async get(@Req() request: Request): Promise<any> {
     const ingredientesRaw = request.query.i as string;
 
-    // eslint-disable-next-line no-console
-    console.log(this.recipesService);
     const receitas = await this.recipesService.getRecipes(ingredientesRaw);
 
     // organiza os ingredientes

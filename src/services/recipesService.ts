@@ -1,69 +1,41 @@
-import axios, { AxiosInstance } from 'axios';
-import qs from 'qs';
-import { StatusCodes } from 'http-status-codes';
-import { BadRequestError } from 'routing-controllers';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import RecipesServiceInterface from '../interfaces/services/recipesServiceInterface';
 import { Receita } from '../models/receita';
 import 'reflect-metadata';
+import GiphyRepositoryInterface from '../interfaces/repositories/giphyRepositoryInterface';
+import RecipePuppyRepositoryInterface from '../interfaces/repositories/recipePuppyRepositoryInterface';
+import Types from '../config/types';
 
 @injectable()
 export default class RecipesService implements RecipesServiceInterface {
-  private readonly recipeApi: AxiosInstance;
+  private readonly recipePuppyRepository: RecipePuppyRepositoryInterface;
 
-  private readonly giphyApi: AxiosInstance;
+  private readonly giphyRepository: GiphyRepositoryInterface;
 
-  constructor() {
-    this.recipeApi = axios.create({
-      baseURL: process.env.RECIPEPUPPY_BASEURL
-    });
-
-    this.giphyApi = axios.create({
-      baseURL: process.env.GIPHY_BASEURL,
-      params: {
-        api_key: process.env.GIPHY_APIKEY
-      }
-    });
+  constructor(
+    @inject(Types.RecipePuppyRepository) recipePuppyRepository: RecipePuppyRepositoryInterface,
+    @inject(Types.GiphyRepository) giphyRepository: GiphyRepositoryInterface
+  ) {
+    this.giphyRepository = giphyRepository;
+    this.recipePuppyRepository = recipePuppyRepository;
   }
 
   public async getRecipes(ingredientes: string): Promise<Receita[]> {
-    const recipeResponse = await this.recipeApi.get(`?${qs.stringify({ i: ingredientes })}`);
+    const recipes = await this.recipePuppyRepository.getRecipe(ingredientes);
 
-    if (recipeResponse.status !== StatusCodes.OK) {
-      throw new BadRequestError('Ocorreu um erro ao buscar as receitas');
-    }
-
-    const receitasPromises: Promise<Receita>[] = [];
-
-    recipeResponse.data.results.forEach((element: any) => {
-      receitasPromises.push(this.handleRecipes(element));
+    const retornoPromises: Promise<Receita>[] = [];
+    // faz o foreach para que seja criado varias promises
+    // assim o processamento fica async
+    recipes.forEach((item) => {
+      retornoPromises.push(this.handleRecipe(item));
     });
 
-    return Promise.all(receitasPromises);
+    return Promise.all(retornoPromises);
   }
 
-  private async handleRecipes(recipeItem: any): Promise<Receita> {
-    const gifUrl = await this.getGifUrl(recipeItem.title);
+  private async handleRecipe(item: Receita): Promise<Receita> {
+    item.gif = await this.giphyRepository.getGiphyUrl(item.title);
 
-    return {
-      title: recipeItem.title,
-      ingredients: recipeItem.ingredients.split(','),
-      link: recipeItem.href,
-      gif: gifUrl
-    } as Receita;
-  }
-
-  private async getGifUrl(searchString: string): Promise<string> {
-    const gifResponse = await this.giphyApi.get('search', {
-      params: {
-        q: searchString
-      }
-    });
-
-    if (gifResponse.status !== StatusCodes.OK) {
-      throw new BadRequestError('Ocorreu um erro ao buscar o gif');
-    }
-
-    return gifResponse.data.data[0].url;
+    return item;
   }
 }
