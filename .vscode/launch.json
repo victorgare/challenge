@@ -12,6 +12,17 @@
       "envFile": "${workspaceFolder}/.env",
       "restart": true,
       "port": 9229
+    },
+    {
+      "name": "Run Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["--inspect-brk", "${workspaceRoot}/node_modules/jest/bin/jest.js", "--runInBand", "--no-cache"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "port": 9229
     }
   ],
   "compounds": []

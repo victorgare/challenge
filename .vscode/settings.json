@@ -1,0 +1,6 @@
+{
+  "jest.autoEnable": false,
+  "jest:pathToConfig": "./jest.config.js",
+  "jestTextExplorer.pathToJestConfig": "./jest/config/js",
+  "jestrunner.jestCommand": "npm run test --"
+}
