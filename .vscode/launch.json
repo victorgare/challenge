@@ -8,9 +8,10 @@
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "debug"],
-      "preLaunchTask": "npm: dev",
+      "preLaunchTask": "npm: debug",
       "envFile": "${workspaceFolder}/.env",
-      "restart": false
+      "restart": true,
+      "port": 9229
     }
   ],
   "compounds": []

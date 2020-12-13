@@ -1,3 +1,3 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 
-export abstract class BaseController {}
+export default abstract class BaseController {}
