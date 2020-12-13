@@ -4,11 +4,11 @@
   "description": "Tech challenge da Delivery Much",
   "main": "./dist/server.js",
   "scripts": {
+    "start": "npm run prettier && npm run lint && nodemon",
     "test": "ts-node ./lib/server.ts",
     "compile": "tsc",
     "lint": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc ./src/**/*.ts --write",
-    "dev": "npm run prettier && npm run lint && nodemon",
     "debug": "npm run prettier && npm run lint && nodemon",
     "prod": "npm run prettier && npm run lint && nodemon"
   },
@@ -26,7 +26,6 @@
     "@types/qs": "^6.9.5",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
-    "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -46,6 +45,7 @@
     "@types/node": "^14.14.13",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
+    "class-transformer": "^0.3.1",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.0.0",

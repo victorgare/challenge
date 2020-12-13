@@ -18,11 +18,11 @@ Utilize as APIs públicas da RecipePuppy (http://www.recipepuppy.com/about/api/)
 A API deve receber como parâmetro um conjunto de ingredientes (máximo 3) e deve retornar os itens utilizados para realizar a busca; e uma lista de receitas.
 
 Cada item lista de receitas deve possuir 4 atributos:
+
 - Título da receitam;
 - Lista de ingredientes;
 - Link para acessar a receita;
 - Link de um gif para a receita.
-
 
 #### A Estrutura
 
@@ -33,7 +33,6 @@ A API possui apenas um endpoint, que deve respeitar a seguinte chamada:
 Exemplo:
 
 `http://127.0.0.1/recipes/?i=onion,tomato`
-
 
 A resposta dessa requisição deve seguir a seguinte estrutura:
 
@@ -64,31 +63,39 @@ A resposta dessa requisição deve seguir a seguinte estrutura:
 - Se algum dos serviços externos estiver indisponível o projeto deverá informar o usuário dessa indisponibilidade;
 - Utilizar Docker para executar o projeto;
 
-
 # Critérios de Avaliação
 
 ### Entrega
+
 - O projeto está completo para ser executado?
 - O projeto atende ao que se propõe fazer?
 - Todos requisitos foram atendidos?
 
 ### Boas Práticas
+
 - O código está de acordo com o guia de estilo do NodeJS / Go?
 - O código está bem estruturado?
 - O código está fluente na linguagem?
 - O código faz o uso correto de Design Patterns?
 
 ### Documentação
+
 - O código foi entregue com um arquivo de README claro de como se guiar?
 - A documentação foi suficiente para executar o projeto?
 - Os commits são pequenos e consistentes?
 - As mensagens de commit são claras?
 
 ### Código Limpo
+
 - O código possibilita expansão para novas funcionalidades?
 - O código é Don't Repeat Yourself?
 - O código é fácil de compreender?
 
 ### Controle de Qualidade
+
 - O código possui configuração de lint?
 - O código possui testes unitários?
+
+### Run docker
+
+- docker-compose up --build

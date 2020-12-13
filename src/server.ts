@@ -14,4 +14,4 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 // run express application on port 3000
-server.listen(3000);
+server.listen(process.env.HOST_PORT);
