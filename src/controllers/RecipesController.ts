@@ -1,12 +1,10 @@
-import { controller } from 'inversify-express-utils';
-import { Controller, Get, OnUndefined, Req } from 'routing-controllers';
+import { BadRequestError, Controller, Get, OnUndefined, Req } from 'routing-controllers';
 import { Request } from 'express';
 import BaseController from './base/baseController';
 import RecipesServiceInterface from '../interfaces/services/recipesServiceInterface';
 import Types from '../config/types';
 import inversifyContainer from '../config/inversify.config';
 
-@controller('/')
 @Controller()
 export default class RecipesController extends BaseController {
   private readonly recipesService: RecipesServiceInterface;
@@ -23,7 +21,9 @@ export default class RecipesController extends BaseController {
   async get(@Req() request: Request): Promise<any> {
     const ingredientesRaw = request.query.i as string;
 
-    const receitas = await this.recipesService.getRecipes(ingredientesRaw);
+    if (!ingredientesRaw) {
+      throw new BadRequestError('Ingredientes não pode ser vazio');
+    }
 
     // organiza os ingredientes
     // em um array e ordena o array
@@ -31,6 +31,12 @@ export default class RecipesController extends BaseController {
     ingredientes = ingredientes.sort((firstItem: string, seconditem: string): number =>
       firstItem.localeCompare(seconditem)
     );
+
+    if (ingredientes.length > 3) {
+      throw new BadRequestError('O limite são 3 ingredientes');
+    }
+
+    const receitas = await this.recipesService.getRecipes(ingredientesRaw);
 
     return {
       keywords: ingredientes,

@@ -7,7 +7,8 @@ dotenv.config();
 
 // creates express app, registers all controller routes and returns you express app instance
 const server = createExpressServer({
-  controllers: [`${__dirname}/controllers/*.ts`]
+  controllers: [`${__dirname}/controllers/*.ts`],
+  development: false
 });
 
 server.use(bodyParser.urlencoded({ extended: true }));

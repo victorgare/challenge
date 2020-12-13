@@ -3,5 +3,5 @@
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
   "verbose": true,
-  "exec": "ts-node src/server.ts"
+  "exec": "ts-node "
 }

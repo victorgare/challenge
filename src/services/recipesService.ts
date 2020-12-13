@@ -24,6 +24,7 @@ export default class RecipesService implements RecipesServiceInterface {
     const recipes = await this.recipePuppyRepository.getRecipe(ingredientes);
 
     const retornoPromises: Promise<Receita>[] = [];
+
     // faz o foreach para que seja criado varias promises
     // assim o processamento fica async
     recipes.forEach((item) => {
