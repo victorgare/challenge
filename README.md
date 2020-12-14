@@ -1,101 +1,75 @@
 # Delivery Much Tech Challenge
 
-Bem vindo(a)! Esse é o Delivery Much Tech Challenge.
+### Arquitetura
 
-Aqui você terá todas as informações para realizar o seu desafio.
-
-O tempo sugerido para conclusão do desafio é de três dias, mas não é uma regra. Estamos mais interessados em observar a qualidade da solução do que o tempo.
-
-Quando sua solução estiver pronta, envie um e-mail para `tech.challenge@deliverymuch.com.br` com o link do seu repositório no Github. Seu código será analisado pelo nosso time de engenheiros. Após a análise, enviaremos o feedback e as instruções dos próximos passos!
-
-Bom desafio!
-
-## O Desafio
-
-Você deve construir uma API que recebe ingredientes como parâmetro de entrada em uma chamada GET e retorna uma lista de receitas.
-Utilize as APIs públicas da RecipePuppy (http://www.recipepuppy.com/about/api/) e da Giphy (https://developers.giphy.com/docs/) para obter os dados necessários.
-
-A API deve receber como parâmetro um conjunto de ingredientes (máximo 3) e deve retornar os itens utilizados para realizar a busca; e uma lista de receitas.
-
-Cada item lista de receitas deve possuir 4 atributos:
-
-- Título da receitam;
-- Lista de ingredientes;
-- Link para acessar a receita;
-- Link de um gif para a receita.
-
-#### A Estrutura
-
-A API possui apenas um endpoint, que deve respeitar a seguinte chamada:
-
-`http://{HOST}/recipes/?i={ingredient_1},{ingredient_2}`
-
-Exemplo:
-
-`http://127.0.0.1/recipes/?i=onion,tomato`
-
-A resposta dessa requisição deve seguir a seguinte estrutura:
+O sistema foi construido com Typescript e dividido em 3 camadas, sendo Controller -> Service -> Repository. Também há entidades com as propriedades dos objetos e injeção de dependências para os testes unitários. A estrutura de pastas está conforme o diagrama abaixo.
 
 ```
-{
-	"keywords": ["onion", "tomato"],
-	"recipes": [{
-		"title": "Greek Omelet with Feta",
-		"ingredients": ["eggs", "feta cheese", "garlic", "red onions", "spinach", "tomato", "water"],
-		"link": "http://www.kraftfoods.com/kf/recipes/greek-omelet-feta-104508.aspx",
-		"gif": "https://media.giphy.com/media/xBRhcST67lI2c/giphy.gif"
-	   },{
-		"title": "Guacamole Dip Recipe",
-		"ingredients": ["avocado", "onions", "tomato"],
-		"link":"http://cookeatshare.com/recipes/guacamole-dip-2783",
-		"gif":"https://media.giphy.com/media/I3eVhMpz8hns4/giphy.gif"
-	   }
-	]
-}
+project
+└───src
+│   └───config -> configurações do inversify (IOC)
+│   └───controller -> controllers para as dynamic routes do express
+|   	└───base
+│   └───interfaces -> interfaces de service e repository, necessario apra IOC
+|   	└───repositories
+|   	└───services
+│   └───models -> entidades
+
+|   	└───responses
+│   └───repositories -> acessos a bases de dados, dbs ou apis
+│   └───services -> regras de negócios do sistema
 ```
 
-### Requisitos
+### O SETUP
 
-- Utilizar NodeJS ou Go para criar a aplicação;
-- Toda configuração e chaves de acesso (se necessário) devem ser acessadas em um arquivo de ambiente. Sua configuração deve estar documentada no README;
-- Para obter o gif no Giphy, utilize o título da receita recebido pelo RecipePuppy;
-- Os ingredientes recebidos pelo RecipePuppy são recebidos em String. Organize os ingredientes em um array e ordene esse array por ordem alfabética;
-- Se algum dos serviços externos estiver indisponível o projeto deverá informar o usuário dessa indisponibilidade;
-- Utilizar Docker para executar o projeto;
+Após clonar o projeto será necessário instalar as dependências
 
-# Critérios de Avaliação
+```bash
+cd challenge
+npm install
+```
 
-### Entrega
+Também será necessário adicionar um arquivo de configuração, para isso crie um arquivo `.env` e adicione os parâmetros abaixo
 
-- O projeto está completo para ser executado?
-- O projeto atende ao que se propõe fazer?
-- Todos requisitos foram atendidos?
+```
+GIPHY_APIKEY=<Sua api key do giphy>
+GIPHY_BASEURL=https://api.giphy.com/v1/gifs/
+RECIPEPUPPY_BASEURL=http://www.recipepuppy.com/api/
+HOST_PORT=3000
+```
 
-### Boas Práticas
+### Linter
 
-- O código está de acordo com o guia de estilo do NodeJS / Go?
-- O código está bem estruturado?
-- O código está fluente na linguagem?
-- O código faz o uso correto de Design Patterns?
+O projeto conta com o eslint instalado
 
-### Documentação
+```bash
+npm run lint
+```
 
-- O código foi entregue com um arquivo de README claro de como se guiar?
-- A documentação foi suficiente para executar o projeto?
-- Os commits são pequenos e consistentes?
-- As mensagens de commit são claras?
+### Testes unitários
 
-### Código Limpo
+O projeto contem testes unitário disponíveis na testa `/src/tests` e cobertura de código, para executar basta executar os comandos abaixo
 
-- O código possibilita expansão para novas funcionalidades?
-- O código é Don't Repeat Yourself?
-- O código é fácil de compreender?
+```bash
+npm run test
+```
 
-### Controle de Qualidade
+Irá executar os testes unitários
 
-- O código possui configuração de lint?
-- O código possui testes unitários?
+```bash
+npm run test:covarage
+```
+
+Irá executar os testes unitários e verificar a cobertura de testes do código. O relatório de cobertura estará disponível em :
+
+```
+/coverage/lcov-report/index.html
+```
 
 ### Run docker
 
-- docker-compose up --build
+Executando o comando abaixo, irá executar o projeto, note que caso algum teste unitário falhe, a instancia não irá executar
+
+```bash
+docker-compose up --build
+```
