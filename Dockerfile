@@ -15,7 +15,8 @@ ADD . /usr/src/app
 # TypeScript Compile
 RUN npm run compile
 
-CMD ["docker", "system", "prune"]
+# run tests
+RUN npm run test
 
 # Start
 CMD [ "npm", "start" ]

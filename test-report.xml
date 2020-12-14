@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Users\Victor\Desktop\challenge\src\tests\services\recipesService.spec.ts">
-    <testCase name="testes unitarios do recipeService testes do metodo getRecipes 1 - Testando as exceções 1.1 - Teste passando uma string vazia como parametro, o metodo retorna uma exception" duration="8"/>
-    <testCase name="testes unitarios do recipeService testes do metodo getRecipes 1 - Testando as exceções 1.2 - Teste mais parametros que o permitido" duration="1"/>
-    <testCase name="testes unitarios do recipeService testes do metodo getRecipes 2 - Testa o caminho ideal 2.1 - Os repositories retornam dados corretos" duration="2"/>
-  </file>
   <file path="C:\Users\Victor\Desktop\challenge\src\tests\repositories\giphyRepository.spec.ts">
-    <testCase name="testes unitarios do recipeService testes do metodo getGiphyUrl 1 - Testando as exceções 1.1 - Teste caso o status code seja diferente de 200" duration="8"/>
+    <testCase name="testes unitarios do recipeService testes do metodo getGiphyUrl 1 - Testando as exceções 1.1 - Teste caso o status code seja diferente de 200" duration="7"/>
     <testCase name="testes unitarios do recipeService testes do metodo getGiphyUrl 2 - Testa o caminho ideal 2.1 - Os retorna a url do gif" duration="1"/>
   </file>
   <file path="C:\Users\Victor\Desktop\challenge\src\tests\repositories\recipePuppyRepository.spec.ts">
     <testCase name="testes unitarios do recipeService testes do metodo getRecipe 1 - Testando as exceções 1.1 - Teste caso o status code seja diferente de 200" duration="8"/>
     <testCase name="testes unitarios do recipeService testes do metodo getRecipe 2 - Testa o caminho ideal 2.1 - Os retorna a url do gif" duration="1"/>
+  </file>
+  <file path="C:\Users\Victor\Desktop\challenge\src\tests\services\recipesService.spec.ts">
+    <testCase name="testes unitarios do recipeService testes do metodo getRecipes 1 - Testando as exceções 1.1 - Teste passando uma string vazia como parametro, o metodo retorna uma exception" duration="7"/>
+    <testCase name="testes unitarios do recipeService testes do metodo getRecipes 1 - Testando as exceções 1.2 - Teste mais parametros que o permitido" duration="0"/>
+    <testCase name="testes unitarios do recipeService testes do metodo getRecipes 2 - Testa o caminho ideal 2.1 - Os repositories retornam dados corretos" duration="2"/>
   </file>
 </testExecutions>
