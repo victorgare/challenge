@@ -4,13 +4,18 @@
   "description": "Tech challenge da Delivery Much",
   "main": "./dist/server.js",
   "scripts": {
+    "build": "npm-run-all -s lint compile",
     "start": "npm run prettier && npm run lint && nodemon src/server.ts",
     "debug": "npm run prettier && npm run lint && nodemon --exec node --inspect=0.0.0.0:9229 --require ts-node/register src/server.ts",
-    "test": "jest --clearCache --config ./jest.config.json",
+    "test": "npm-run-all -s lint:test build jest",
+    "test:coverage": "npm-run-all -s lint:test lint compile jest:coverage",
     "compile": "tsc",
     "lint": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc ./src/**/*.ts --write",
-    "prod": "npm run prettier && npm run lint && nodemon"
+    "prod": "npm run prettier && npm run lint && nodemon",
+    "lint:test": "eslint ./src/tests/**/*.ts --config ./.eslintrc.json --cache --cache-location ./.eslintcache/ --fix",
+    "jest": "jest",
+    "jest:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -34,18 +39,19 @@
     "i": "^0.3.6",
     "inversify": "^5.0.5",
     "inversify-express-utils": "^6.3.2",
-    "jest-sonar-reporter": "^2.0.0",
+    "jest-mock-axios": "^4.2.1",
     "npm": "^6.14.9",
+    "npm-run-all": "^4.1.5",
     "qs": "^6.9.4",
     "reflect-metadata": "^0.1.13",
-    "routing-controllers": "^0.9.0-alpha.6",
-    "ts-jest": "^26.4.4"
+    "routing-controllers": "^0.9.0-alpha.6"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.9",
     "@types/jest": "^26.0.19",
     "@types/mocha": "^8.2.0",
+    "@types/moxios": "^0.4.9",
     "@types/multer": "^1.4.5",
     "@types/node": "^14.14.13",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
@@ -55,12 +61,25 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-prettier": "^3.2.0",
     "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "moxios": "^0.4.0",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.2"
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "<rootDir>/junit/xml",
+    "classNameTemplate": "{classname} - {title}",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " > ",
+    "usePathForSuiteName": "true"
   }
 }

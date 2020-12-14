@@ -1,8 +1,8 @@
+import 'reflect-metadata';
 import axios, { AxiosInstance } from 'axios';
 import { Container } from 'inversify';
 import RecipesServiceInterface from '../interfaces/services/recipesServiceInterface';
 import Types from './types';
-import 'reflect-metadata';
 import RecipePuppyRepositoryInterface from '../interfaces/repositories/recipePuppyRepositoryInterface';
 import RecipePuppyRepository from '../repositories/recipePuppyRepository';
 import RecipesService from '../services/recipesService';
@@ -18,6 +18,7 @@ inversifyContainer.bind<GiphyRepositoryInterface>(Types.GiphyRepository).to(Giph
 // config do axios do recipe puppy
 inversifyContainer.bind<AxiosInstance>(Types.AxiosRecipePuppy).toProvider(() =>
   axios.create({
+    validateStatus: () => true,
     baseURL: process.env.RECIPEPUPPY_BASEURL
   })
 );
@@ -25,6 +26,7 @@ inversifyContainer.bind<AxiosInstance>(Types.AxiosRecipePuppy).toProvider(() =>
 // config do axios do giphy
 inversifyContainer.bind<AxiosInstance>(Types.AxiosGiphy).toProvider(() =>
   axios.create({
+    validateStatus: () => true,
     baseURL: process.env.GIPHY_BASEURL,
     params: {
       api_key: process.env.GIPHY_APIKEY

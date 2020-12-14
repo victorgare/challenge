@@ -16,7 +16,7 @@ export default class RecipePuppyRepository implements RecipePuppyRepositoryInter
   }
 
   public async getRecipe(searchParam: string): Promise<Receita[]> {
-    const recipeResponse = await this.axiosRecipePuppy.get(`?${qs.stringify({ i: searchParam })}`);
+    const recipeResponse = await this.axiosRecipePuppy.get(`/?${qs.stringify({ i: searchParam })}`);
 
     if (recipeResponse.status !== StatusCodes.OK) {
       throw new BadRequestError('Ocorreu um erro ao buscar as receitas');
